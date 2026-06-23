@@ -34,7 +34,7 @@ struct Register {
       TextInput({ placeholder:'请输入用户名'})
         .type(InputType.Normal)
         .height(48)
-        .width(300)
+        .width('90%')
         .fontFamily('serif').fontWeight(FontWeight.Medium).fontSize(16)
         .margin({ top: 16 })
         .onChange((value: string) => {
@@ -43,7 +43,7 @@ struct Register {
       TextInput({ placeholder:'请输入密码'})
         .type(InputType.Password)
         .height(48)
-        .width(300)
+        .width('90%')
         .fontFamily('serif').fontWeight(FontWeight.Medium).fontSize(16)
         .margin({ top: 16 })
         .onChange((value: string) => {
@@ -52,7 +52,7 @@ struct Register {
       TextInput({ placeholder:'请再次输入密码'})
         .type(InputType.Password)
         .height(48)
-        .width(300)
+        .width('90%')
         .fontFamily('serif').fontWeight(FontWeight.Medium).fontSize(16)
         .margin({ top: 16, bottom: 25 })
         .onChange((value: string) => {
@@ -65,7 +65,7 @@ struct Register {
         })
       }
       Button('确认注册')
-        .width(300)
+        .width('90%')
         .height(48)
         .backgroundColor('#ff17bc9b')
         .fontFamily('serif').fontWeight(FontWeight.Medium).fontSize(16)

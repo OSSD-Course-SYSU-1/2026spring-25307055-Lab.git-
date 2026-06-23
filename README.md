@@ -48,6 +48,7 @@ Lab2/
 │       │   │   ├── Controller/       # 游戏逻辑控制器
 │       │   │   │   └── CasualModeController.ets # 休闲模式控制器
 │       │   │   ├── Utils/            # 工具类
+│       │   │   │   ├── ScreenAdapter.ets        # 屏幕适配工具（响应式尺寸计算）
 │       │   │   │   ├── CountInversions.ets      # 逆序数计算（判断拼图可解性）
 │       │   │   │   ├── LocalDataService.ets     # 本地数据存储服务
 │       │   │   │   └── AxiosRequest.ets         # 网络请求封装
@@ -135,3 +136,29 @@ Lab2/
 - **排行榜**：查看全球玩家排名
 - **多语言**：中文 / 英文
 - **拼图验证**：通过逆序数算法判断拼图可解性
+
+## 屏幕适配
+
+针对 **手机（16:9）** 和 **平板（4:3）** 两种屏幕比例进行了 UI 响应式适配。
+
+### 适配方案
+
+通过 `ScreenAdapter` 工具类（`entry/src/main/ets/Utils/ScreenAdapter.ets`），在应用启动时通过 `display.getDefaultDisplaySync()` 获取屏幕真实尺寸（px → vp 换算），自动区分设备类型：
+
+- **手机**：宽度 < 600vp，网格约占屏宽 85%，布局紧凑
+- **平板**：宽度 ≥ 600vp，网格约占屏宽 75%（上限 600vp），间距和字号放大
+
+### 具体修改
+
+| 文件 | 原问题 | 适配方式 |
+|------|--------|----------|
+| `GameGrid.ets` / `RankedGameGrid.ets` | 网格硬编码 `310×250vp` | `ScreenAdapter.getGameGridSize()` 动态计算宽高 |
+| `Login.ets` / `Register.ets` | 输入框/按钮 `width(300)` 固定 | → `width('90%')` 百分比宽度 |
+| `ControlButtons.ets` | 三个按钮各 `width(110)` 合计 350vp 小屏溢出 | → `layoutWeight(1)` 弹性均分 |
+| `NavigationBar.ets` / `RankedNavigationBar.ets` | `margin({left:100})` 硬编码间距 | → `Blank()` + `FlexAlign.SpaceBetween` 弹性布局 |
+| `Index.ets` | `margin({top:150})` 固定边距 | → `layoutWeight(1)` 弹性空间垂直居中 |
+| `DifficultySelector.ets` | `height(60)` 固定 | → `spacing(60, 70)` 手机/平板差异化 |
+| `ModeSelector.ets` / `RankedModeSelector.ets` | `height(40)` 固定 | → `spacing(40, 50)` |
+| `ImageList.ets` | `height(130)` 固定 | → `spacing(120, 160)` |
+| `CasualMode.ets` / `RankedMode.ets` | 无初始化 | 在 `aboutToAppear()` 中调用 `ScreenAdapter.init()` |
+| `ScreenAdapter.ets`（新增） | — | 屏幕信息获取 + 网格尺寸/间距/字号响应式计算 |

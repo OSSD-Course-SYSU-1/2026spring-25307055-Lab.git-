@@ -31,6 +31,9 @@ struct Index {
 
   build() {
     Column(){
+      // 顶部弹性空间，将内容推至垂直居中
+      Column().layoutWeight(1)
+
       Text(){
         Span(' 拼 图 ')
           .fontFamily('serif').fontWeight(FontWeight.Medium).fontSize(40)
@@ -41,8 +44,6 @@ struct Index {
           .fontStyle(FontStyle.Italic)
           .fontColor('#2E59A7')
       }
-      .margin({top:150})
-
 
       Button({type:ButtonType.Capsule, stateEffect:true}){
         Row(){
@@ -53,15 +54,14 @@ struct Index {
             .margin({left:30, right:30})
         }
       }
-      .width('60%')
+      .width('70%')
       .height(50)
       .alignSelf(ItemAlign.Center)
-      .margin({top:100}).borderRadius(10)
+      .margin({top:30}).borderRadius(10)
       .backgroundColor('#A0D3FF')
       .onClick(() => {
         router.pushUrl({ url: 'pages/CasualMode' })
       })
-
 
       Button({type:ButtonType.Capsule, stateEffect:true}){
         Row(){
@@ -72,7 +72,7 @@ struct Index {
             .margin({left:30, right:30})
         }
       }
-      .width('60%')
+      .width('70%')
       .height(50)
       .alignSelf(ItemAlign.Center)
       .margin({top:20}).borderRadius(10)
@@ -90,7 +90,7 @@ struct Index {
             .margin({left:30, right:30})
         }
       }
-      .width('60%')
+      .width('70%')
       .height(50)
       .alignSelf(ItemAlign.Center)
       .borderRadius(10)
@@ -99,6 +99,15 @@ struct Index {
       .onClick(() => {
         this.dialogControllerRule.open()
       })
+
+      // 底部弹性空间
+      Column().layoutWeight(1)
+
+      // 版本信息（靠底）
+      Text('v1.0.0')
+        .fontSize(12)
+        .fontColor('#999999')
+        .margin({ bottom: 20 })
 
       // Button(){
       //   Row(){
@@ -126,6 +135,7 @@ struct Index {
     }.backgroundColor('#FFF8DC')
     .width('100%')
     .height('100%')
+    .justifyContent(FlexAlign.Center)
   }
   pageTransition() {
     // 定义页面进入时的效果，从左侧滑入，时长为1000ms，无论页面栈发生push还是pop操作均可生效

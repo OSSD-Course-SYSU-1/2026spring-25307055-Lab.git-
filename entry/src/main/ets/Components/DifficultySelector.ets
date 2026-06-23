@@ -1,3 +1,5 @@
+import { ScreenAdapter } from '../Utils/ScreenAdapter'
+
 @Component
 struct DifficultySelector {
   @Link isHard: boolean
@@ -19,7 +21,7 @@ struct DifficultySelector {
     }
     .id('switch')
     .width('97%')
-    .height(60)
+    .height(ScreenAdapter.spacing(60, 70))
     .margin({ top: 10 })
     .backgroundColor(Color.White)
     .alignRules({

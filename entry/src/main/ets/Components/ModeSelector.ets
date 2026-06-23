@@ -1,5 +1,6 @@
 import { imageModel } from '../Bean/ImageModel'
 import { CasualModeController } from '../Controller/CasualModeController'
+import { ScreenAdapter } from '../Utils/ScreenAdapter'
 
 @Component
 struct ModeSelector {
@@ -45,8 +46,8 @@ struct ModeSelector {
     }
     .id('select')
     .width('97%')
-    .height(40)
-    .margin({ bottom: 20 })
+    .height(ScreenAdapter.spacing(40, 50))
+    .margin({ bottom: ScreenAdapter.spacing(20, 30) })
     .alignRules({
       top: { anchor: 'switch', align: VerticalAlign.Bottom },
       middle: { anchor: '__container__', align: HorizontalAlign.Center }

@@ -1,6 +1,7 @@
 import { subImage } from '../Bean/SubImage'
 import { imageModel } from '../Bean/ImageModel'
 import { updateScore } from '../api/Rank'
+import { ScreenAdapter } from '../Utils/ScreenAdapter'
 
 @Component
 struct RankedGameGrid {
@@ -62,9 +63,9 @@ build() {
     top: { anchor: 'tabGame', align: VerticalAlign.Bottom },
     middle: { anchor: '__container__', align: HorizontalAlign.Center }
   })
-  .width(310)
-  .height(250)
-  .margin({ top: 15 })
+  .width(ScreenAdapter.getGameGridSize().width)
+  .height(ScreenAdapter.getGameGridSize().height)
+  .margin({ top: ScreenAdapter.spacing(15, 25) })
   .borderWidth(5)
   .borderRadius(10)
   .borderColor(Color.Pink)

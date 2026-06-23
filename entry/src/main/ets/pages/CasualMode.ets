@@ -11,6 +11,7 @@ import { imageOrigin } from '../Bean/ImageOrigin'
 import { subImage } from '../Bean/SubImage'
 import CasualModeController from '../Controller/CasualModeController'
 import image from '@ohos.multimedia.image'
+import { ScreenAdapter } from '../Utils/ScreenAdapter'
 
 @Entry
 @Component
@@ -49,6 +50,7 @@ struct CasualMode {
   private controller = CasualModeController;
 
   async aboutToAppear(){
+    ScreenAdapter.init()
     console.log('触发了 aboutToAppear 方法')
     console.log('Initial selected_img:', this.selected_img)
     this.controller.aboutToAppear = this.aboutToAppear.bind(this);

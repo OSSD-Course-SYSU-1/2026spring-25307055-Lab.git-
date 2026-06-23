@@ -1,6 +1,7 @@
 import { imageOrigin } from '../Bean/ImageOrigin'
 import { imageModel } from '../Bean/ImageModel'
 import { CasualModeController } from '../Controller/CasualModeController'
+import { ScreenAdapter } from '../Utils/ScreenAdapter'
 
 @Component
 struct ImageList {
@@ -46,7 +47,7 @@ struct ImageList {
       .listDirection(Axis.Horizontal)
       .scrollBar(BarState.Auto)
     }
-    .height(130)
+    .height(ScreenAdapter.spacing(120, 160))
     .backgroundColor('rgb(242,242,242)')
     .borderRadius(5)
     .alignRules({

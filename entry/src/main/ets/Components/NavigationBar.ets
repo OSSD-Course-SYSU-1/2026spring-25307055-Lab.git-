@@ -17,19 +17,19 @@ struct NavigationBar {
     Row() {
       Image($r('app.media.ic_arrow_left'))
         .size({ width: 30, height: 30 })
-        .margin({ left: 10 })
+        .margin({ left: 10, right: 10 })
         .interpolation(ImageInterpolation.High)
         .onClick(() => {
           router.back()
         })
+      Blank()
       Text('步数：' + this.imageModel.steps)
         .fontFamily('serif').fontWeight(FontWeight.Medium).fontSize(25)
-        .margin({ left: 100 })
-      // Row().height(2).backgroundColor('#E6E6FA').width('100%')
+      Blank()
       Image($r('app.media.ic_public_help_filled'))
         .width(30)
         .height(30)
-        .margin({ left: 100 })
+        .margin({ left: 10, right: 10 })
         .interpolation(ImageInterpolation.High)
         .onClick(() => {
           this.customPopup = !this.customPopup
@@ -39,16 +39,11 @@ struct NavigationBar {
           placement: Placement.Bottom,
           popupColor: Color.Pink
         })
-      Row().height(2).backgroundColor('#E6E6FA').width('100%')
     }
     .width('100%')
     .height(40)
     .borderRadius(2)
-    // .alignRules({
-    //   top: { anchor: '__container__', align: VerticalAlign.Top },
-    //   middle: { anchor: '__container__', align: HorizontalAlign.Center }
-    // })
-    // .id('tabGame')
+    .justifyContent(FlexAlign.SpaceBetween)
   }
   @Builder
   popupBuilder() {
