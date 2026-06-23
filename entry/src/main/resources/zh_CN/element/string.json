@@ -11,6 +11,10 @@
     {
       "name": "EntryAbility_label",
       "value": "拼图华容道"
+    },
+    {
+      "name": "distributed_datasync_reason",
+      "value": "用于在多设备间同步游戏进度"
     }
   ]
 }

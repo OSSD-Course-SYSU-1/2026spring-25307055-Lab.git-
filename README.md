@@ -52,6 +52,10 @@ Lab2/
 │       │   │   │   ├── CountInversions.ets      # 逆序数计算（判断拼图可解性）
 │       │   │   │   ├── LocalDataService.ets     # 本地数据存储服务
 │       │   │   │   └── AxiosRequest.ets         # 网络请求封装
+│       │   │   ├── Distributed/      # 分布式流转接口层
+│       │   │   │   ├── DistributedTypes.ets        # 分布式数据类型定义
+│       │   │   │   ├── DistributedGameService.ets  # 分布式游戏服务接口
+│       │   │   │   └── DistributedEventBus.ets     # 分布式事件总线
 │       │   │   ├── api/              # API 接口层
 │       │   │   │   └── Rank.ets                # 排名相关 API
 │       │   │   ├── common/           # 公共常量
@@ -162,3 +166,37 @@ Lab2/
 | `ImageList.ets` | `height(130)` 固定 | → `spacing(120, 160)` |
 | `CasualMode.ets` / `RankedMode.ets` | 无初始化 | 在 `aboutToAppear()` 中调用 `ScreenAdapter.init()` |
 | `ScreenAdapter.ets`（新增） | — | 屏幕信息获取 + 网格尺寸/间距/字号响应式计算 |
+
+---
+
+## 分布式流转（接口预留）
+
+预留了 HarmonyOS 自由流转（分布式多设备协同）的接口层，便于后续实现以下场景：
+
+- **游戏迁移**：在手机上开始游戏，无缝转移到平板上继续
+- **多端协同**：平板展示游戏网格，手机作为遥控器操作
+- **数据同步**：排位积分、游戏进度在设备间实时同步
+
+### 接口架构
+
+```
+Distributed/
+├── DistributedTypes.ets           # 数据类型（DeviceInfo、GameSnapshot、SessionInfo 等）
+├── DistributedGameService.ets     # 核心服务（设备发现、会话管理、状态同步、迁移）
+└── DistributedEventBus.ets        # 事件总线（发布/订阅、跨设备事件传递）
+```
+
+### 核心接口
+
+| 类/接口 | 能力 | 后续对接 HarmonyOS API |
+|---------|------|----------------------|
+| `DistributedGameService` | 设备发现、会话创建/加入/离开 | `@ohos.distributedDeviceManager` |
+| `DistributedGameService` | 游戏快照推送/接收、迁移 | `@ohos.distributedMissionManager` / `@ohos.data.distributedKVStore` |
+| `DistributedEventBus` | 跨设备事件发布/订阅 | `@ohos.distributedObject` |
+| `GameSnapshot` | 游戏状态序列化（网格、步数、用时、积分等） | —（纯数据类） |
+
+### 已有集成
+
+- `EntryAbility.onCreate()` 已调用 `DistributedGameService.init()`
+- `module.json5` 已声明分布式权限：`DISTRIBUTED_DATASYNC`（含 `usedScene` 配置）
+- 多语言资源已添加权限用途说明（中/英）
